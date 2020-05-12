@@ -1,7 +1,7 @@
 @use "sass:map";
 
 $colors: (
-  gray: (
+  'gray': (
     100: #EEEEEE,
     200: #D5D5D5,
     300: #BBBBBB,
@@ -12,17 +12,19 @@ $colors: (
     800: #262626,
     900: #1A1A1A,
   ),
-  white: #fff,
-  black: #000,
+  'white': #fff,
+  'black': #000,
 );
 
-@function map-deep-get($map, $keys...) {
-  @each $key in $keys {
-    $map: map.get($map, $key);
+@mixin colors {
+  @each $colorName, $color in $colors {
+    @if type-of($color) == 'map' {
+      @each $weight, $value in $color {
+        --#{$colorName}-#{$weight}: #{$value};
+      }
+    }
+    @else {
+      --#{$colorName}: #{$color};
+    }
   }
-  @return $map;
-}
-
-@function color($color: gray, $weight: 500) {
-  @return map-deep-get($colors, $color, $weight);
-}
+} 

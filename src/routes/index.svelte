@@ -1,7 +1,14 @@
-<style>
-  :root {
-    --black: color();
+<script>
+  let darkMode = false;
+  function toggleDarkMode() {
+    darkMode = !darkMode;
+    document.documentElement.setAttribute("data-dark-theme", darkMode);
   }
+</script>
+
+<style lang="scss">
+  @import "../styles/theme.scss";
+
   main {
     text-align: center;
   }
@@ -16,16 +23,16 @@
   .icon {
     display: block;
     text-align: center;
-    background-color: var(--black);
+    background-color: var(--main-color);
     border-radius: 50%;
-    color: #fff;
+    color: var(--bg-color);
     font-size: 1rem;
     height: 1.5rem;
     width: 1.5rem;
   }
 
   .icon--no-border {
-    color: var(--black);
+    color: var(--main-color);
     font-size: 1.5rem;
     line-height: 1;
   }
@@ -36,10 +43,17 @@
     filter: invert(1);
     display: inline-block;
   }
+  .dark-mode {
+    appearance: none;
+    position: fixed;
+    top: 16px;
+    right: 16px;
+    color: var(--main-color);
+  }
 </style>
 
 <svelte:head>
-  <title>Sapper project template</title>
+  <title>Daniel Navarrete | Web Developer</title>
   <script
     src="https://kit.fontawesome.com/8cab238fe7.js"
     crossorigin="anonymous">
@@ -48,7 +62,11 @@
 </svelte:head>
 
 <main>
-  <img class="logo" alt="Logo" src="logo_black.png" />
+{#if darkMode}
+    <img class="logo" alt="Logo" src="logo_white.png" />
+  {:else}
+    <img class="logo" alt="Logo" src="logo_black.png" />
+  {/if}
   <h1>Daniel Navarrete</h1>
   <h2>Web developer</h2>
 
@@ -67,5 +85,12 @@
     <a class="icon" href="https://codesandbox.io/u/dnlnav">
       <img class="icon__img" src="codesandbox.svg" alt="CodeSandBox" />
     </a>
+  </div>
+  <div class="dark-mode" on:click={toggleDarkMode}>
+  {#if darkMode}
+    <i class="fas fa-lightbulb"></i>
+  {:else}
+    <i class="far fa-lightbulb"></i>
+  {/if}
   </div>
 </main>

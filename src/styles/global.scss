@@ -1,1 +1,17 @@
 @import "./theme.scss";
+
+:root{
+  @include colors;
+}
+
+html {
+  --main-color: var(--gray-500);
+  --bg-color: var(--white);
+  color: var(--main-color);
+  background-color: var(--bg-color);
+}
+
+html[data-dark-theme="true"] {
+  --main-color: var(--white);
+  --bg-color: var(--gray-500);
+}

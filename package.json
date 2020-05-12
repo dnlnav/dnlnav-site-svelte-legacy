@@ -4,7 +4,7 @@
   "version": "0.0.1",
   "scripts": {
     "dev": "sapper dev --no-hot",
-    "start": "node __sapper__/build",
+    "start": "yarn dev & open http://localhost:3000",
     "build": "sapper build",
     "export": "sapper export",
     "cy:run": "cypress run",
