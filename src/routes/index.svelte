@@ -1,4 +1,8 @@
 <script>
+  import Logo from "../components/svg/Logo";
+  import SandboxLogo from "../components/svg/Sandbox";
+  import Icon from '../components/Icon'
+
   let darkMode = false;
   function toggleDarkMode() {
     darkMode = !darkMode;
@@ -8,47 +12,54 @@
 
 <style lang="scss">
   @import "../styles/theme.scss";
+  $icon-size: 2rem;
 
   main {
     text-align: center;
   }
   .logo {
+    display: inline-block;
     width: 4rem;
   }
 
   .icons {
     display: inline-flex;
+    width: 10rem;
+    justify-content: space-between;
   }
 
   .icon {
-    display: block;
-    text-align: center;
     background-color: var(--main-color);
     border-radius: 50%;
     color: var(--bg-color);
-    font-size: 1rem;
-    height: 1.5rem;
-    width: 1.5rem;
+    height: $icon-size;
+    width: $icon-size;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    :global(.icon__img) {
+      height: $icon-size * 0.7;
+      width: $icon-size * 0.7;
+      display: block;
+      color: var(--bg-color);
+    }
   }
 
   .icon--no-border {
     color: var(--main-color);
-    font-size: 1.5rem;
-    line-height: 1;
+    height: $icon-size;
+    width: $icon-size;
   }
 
-  .icon__img {
-    height: 1rem;
-    width: 1rem;
-    filter: invert(1);
-    display: inline-block;
-  }
   .dark-mode {
     appearance: none;
     position: fixed;
     top: 16px;
     right: 16px;
     color: var(--main-color);
+    height: 1.8rem;
+    width: 1.8rem;
   }
 </style>
 
@@ -62,35 +73,33 @@
 </svelte:head>
 
 <main>
-{#if darkMode}
-    <img class="logo" alt="Logo" src="logo_white.png" />
-  {:else}
-    <img class="logo" alt="Logo" src="logo_black.png" />
-  {/if}
+  <div class="logo">
+    <Logo />
+  </div>
   <h1>Daniel Navarrete</h1>
   <h2>Web developer</h2>
 
   <div class="icons">
-    <a class="icon" href="https://twitter.com/dnlnav">
-      <i class="fab fa-twitter" />
+    <a class="icon" href="https://twitter.com/dnlnav" target="_blank">
+      <Icon name="mdiTwitter" class="icon__img"/>
     </a>
     <a
       class="icon"
-      href="https://www.linkedin.com/in/daniel-navarrete-349220b4/">
-      <i class="fab fa-linkedin-in" />
+      href="https://www.linkedin.com/in/daniel-navarrete-349220b4/" target="_blank">
+      <Icon name="mdiLinkedin" class="icon__img"/>
     </a>
-    <a class="icon--no-border" href="https://github.com/dnlnav">
-      <i class="fab fa-github" />
+    <a class="icon--no-border" href="https://github.com/dnlnav" target="_blank">
+      <Icon name="mdiGithub" viewBox="2 2 20 20"/>
     </a>
-    <a class="icon" href="https://codesandbox.io/u/dnlnav">
-      <img class="icon__img" src="codesandbox.svg" alt="CodeSandBox" />
+    <a class="icon" href="https://codesandbox.io/u/dnlnav" target="_blank">
+      <SandboxLogo class="icon__img"/>
     </a>
   </div>
   <div class="dark-mode" on:click={toggleDarkMode}>
-  {#if darkMode}
-    <i class="fas fa-lightbulb"></i>
-  {:else}
-    <i class="far fa-lightbulb"></i>
-  {/if}
+    {#if darkMode}
+      <Icon name="mdiLightbulbOn"/>
+    {:else}
+      <Icon name="mdiLightbulb"/>
+    {/if}
   </div>
 </main>
